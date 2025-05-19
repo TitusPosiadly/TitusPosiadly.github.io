@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Redirecting...</title>
+    <script>
+      window.onload = function () {
+        const params = new URLSearchParams(window.location.search);
+        const access_token = params.get("access_token");
+        const error = params.get("error");
+        const error_description = params.get("error_description");
+        const state = params.get("state");
+
+        if (access_token) {
+          // Redirect to your app's custom scheme
+          window.location.href = `vodtracker://callback?access_token=${access_token}&state=${state}`;
+        } else if (error) {
+          // Redirect to your app's custom scheme
+          window.location.href = `vodtracker://callback?error=${error}&error_description=${error_description}&state=${state}`;
+        } else {
+          document.body.innerText = "Missing authorization code.";
+        }
+      };
+    </script>
+  </head>
+  <body>
+    Redirecting to app...
+  </body>
+</html>
